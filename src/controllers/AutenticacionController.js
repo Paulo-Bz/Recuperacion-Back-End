@@ -1,22 +1,46 @@
 const jwt = require('jsonwebtoken');
+const UsuarioModel = require('../models/UsuarioModel');
 
-const AutenticacionController = {}
+const AutenticacionController = {};
 
 const JWT_KEY = process.env.JWT_KEY;
 
-const usuarios = [
-    { id: 1, usuario: 'Lord', contrasenia: '123456' },
-    { id: 2, usuario: 'Lady', contrasenia: 'abcdef' },
-];
 
-AutenticacionController.autenticar = (req, res) => {
-    const usuario = req.body.usuario;
+AutenticacionController.autenticar = async (req, res) => {
+    try {
+        const { usuario, contraseña } = req.body;
 
-    // Simular autenticación
-    let token = jwt.sign({ usuario: usuario }, JWT_KEY);
+        const UsuarioEncontrado = await UsuarioModel.findOne({
 
-    res.json({ token: token });
+            usuario: usuario,
+            contraseña: contraseña,
+
+        });
+        if (!UsuarioEncontrado) {
+            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+        }
+        const datos = {
+            id: UsuarioEncontrado._id,
+            usuario: UsuarioEncontrado.usuario,
+            nombres: UsuarioEncontrado.nombres,
+            apellidos: UsuarioEncontrado.apellidos,
+        }
+
+        let token = jwt.sign(datos, JWT_KEY);
+
+        res.json({ token: token, datos: datos });
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: "se produjo un error"
+        });
+
+    }
 }
+
+
+
+
+
 
 AutenticacionController.registrar = (req, res) => {
     // Simular regitro...

@@ -22,6 +22,7 @@ PublicacionController.verPublicacion = async (req, res) => {
     try {
         const { id } = req.params;
         const publicacionEncontrado = await PublicacionModel.findById(id);
+        //const publicacionEncontrado = await PublicacionModel.find().populate('autor');
 
         return res.json(publicacionEncontrado);
     } catch (error) {
@@ -40,6 +41,19 @@ PublicacionController.verPublicacion = async (req, res) => {
 PublicacionController.crearPublicacion = async (req, res) => {
     try {
         const { titulo, contenido, autor } = req.body
+        /* const { titulo, contenido } = req.body;
+        const { token } = req.headers;
+
+        const tokenValido = verificarToken(token);
+
+        if (!tokenValido) {
+            return res.status(500).json({
+                mansaje: 'token invalido',
+                error: error
+            });
+        }
+
+    const autor = tokenValido.id;*/
 
         const nuevaPublicacion = new PublicacionModel({
             titulo: titulo,
