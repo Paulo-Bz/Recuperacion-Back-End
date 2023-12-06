@@ -5,6 +5,8 @@ const express = require('express');
 const PublicacionRouter = require('./routes/PublicacionRoute');
 const coneccionMongo = require('./dataBase.js/MongooseDB');
 const cors = require('cors');
+const AutenticacionRouter = require('./routes/AutenticacionRoute');
+const router = require('./routes/UsuarioRoutes');
 
 const app = express();
 const PORT = process.env.PORT;
@@ -14,8 +16,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
-//RUTA//
+//RUTAS//
 app.use(PublicacionRouter);
+app.use(AutenticacionRouter);
+app.use(router);
 
 
 app.listen(PORT, () => {

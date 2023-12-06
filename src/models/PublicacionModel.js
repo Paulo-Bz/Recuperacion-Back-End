@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Types = require('mongoose');
+
 
 const PublicacionSchema = new mongoose.Schema({
     id: {
@@ -14,8 +16,8 @@ const PublicacionSchema = new mongoose.Schema({
         required: true
     },
     autor: {
-        type: String,
-        required: true
+        type: Types.ObjectId,
+        ref: 'usuario'
     }
 });
 
