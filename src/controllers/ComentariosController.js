@@ -35,8 +35,7 @@ ComentariosController.crearComentario = async (req, res) => {
 
         if (!validoToken) {
             return res.status(500).json({
-                mansaje: 'token invalido',
-                error: error
+                mansaje: 'token invalido'
             });
         }
 
