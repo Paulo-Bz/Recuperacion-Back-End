@@ -1,13 +1,17 @@
 const PublicacionModel = require('../models/PublicacionModel');
 
+const { verificarToken } = require('../utils/token');
+
 const PublicacionController = {}
 
 
 PublicacionController.verPublicaciones = async (req, res) => {
     try {
-        const listaPublicaciones = await PublicacionModel.find();
+        //const listaPublicaciones = await PublicacionModel.find();
+        const listaPublicaciones = await PublicacionModel.find().populate('autor');
 
         return res.json(listaPublicaciones);
+
 
     } catch (error) {
 
@@ -21,8 +25,9 @@ PublicacionController.verPublicaciones = async (req, res) => {
 PublicacionController.verPublicacion = async (req, res) => {
     try {
         const { id } = req.params;
+
         const publicacionEncontrado = await PublicacionModel.findById(id);
-        //const publicacionEncontrado = await PublicacionModel.find().populate('autor');
+
 
         return res.json(publicacionEncontrado);
     } catch (error) {
@@ -40,8 +45,9 @@ PublicacionController.verPublicacion = async (req, res) => {
 
 PublicacionController.crearPublicacion = async (req, res) => {
     try {
-        const { titulo, contenido, autor } = req.body
-        /* const { titulo, contenido } = req.body;
+        //const { titulo, contenido, autor } = req.body
+        const { titulo, contenido } = req.body;
+
         const { token } = req.headers;
 
         const tokenValido = verificarToken(token);
@@ -53,12 +59,12 @@ PublicacionController.crearPublicacion = async (req, res) => {
             });
         }
 
-    const autor = tokenValido.id;*/
+        const autor = tokenValido.id;
 
         const nuevaPublicacion = new PublicacionModel({
             titulo: titulo,
             contenido: contenido,
-            autor: autor
+            autor: autor,
         })
         await nuevaPublicacion.save();
 

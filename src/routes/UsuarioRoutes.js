@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const UsuarioRouter = require('express').Router();
 const {
     verUsuarios,
     verUsuario,
@@ -10,21 +10,21 @@ const {
 //MONGOOSE//
 
 // ver usuarios 
-router.get('/usuarios', verUsuarios);
+UsuarioRouter.get('/usuarios', verUsuarios);
 
 // ver usuario
-router.get('/usuario/:id', verUsuario);
+UsuarioRouter.get('/usuario/:id', verUsuario);
 
 // crear usuario
-router.post('/usuario', crearUsuario);
+UsuarioRouter.post('/usuario', crearUsuario);
 
 // editar usuario
-router.put('/usuario', editarUsuario);
+UsuarioRouter.put('/usuario', editarUsuario);
 
 // eliminar usuario
-router.delete('/usuario', eliminarUsuario);
+UsuarioRouter.delete('/usuario', eliminarUsuario);
 
 
 
 
-module.exports = router;
+module.exports = UsuarioRouter;

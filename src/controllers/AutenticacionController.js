@@ -12,12 +12,11 @@ AutenticacionController.autenticar = async (req, res) => {
 
         const UsuarioEncontrado = await UsuarioModel.findOne({
 
-            usuario: usuario,
-            contraseña: contraseña,
+            usuario, contraseña
 
         });
         if (!UsuarioEncontrado) {
-            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+            return res.status(404).json({ mensaje: 'Usuario no encontrado.' });
         }
         const datos = {
             id: UsuarioEncontrado._id,
