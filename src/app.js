@@ -7,6 +7,7 @@ const PublicacionRouter = require('./routes/PublicacionRoute');
 const coneccionMongo = require('./dataBase.js/MongooseDB');
 const AutenticacionRouter = require('./routes/AutenticacionRoute');
 const UsuarioRouter = require('./routes/UsuarioRoutes');
+const ComentariosRouter = require('./routes/ComentariosRoute');
 
 
 const app = express();
@@ -22,7 +23,7 @@ app.use(bodyParser.json());
 app.use(PublicacionRouter);
 app.use(AutenticacionRouter);
 app.use(UsuarioRouter);
-
+app.use(ComentariosRouter);
 
 app.listen(PORT, () => {
     console.log(`El servidor esta escuchandoen el puerto ${PORT}`);
