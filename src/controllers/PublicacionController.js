@@ -7,7 +7,6 @@ const PublicacionController = {}
 
 PublicacionController.verPublicaciones = async (req, res) => {
     try {
-        //const listaPublicaciones = await PublicacionModel.find();
         const listaPublicaciones = await PublicacionModel.find().populate('autor');
 
         return res.json(listaPublicaciones);
@@ -45,7 +44,6 @@ PublicacionController.verPublicacion = async (req, res) => {
 
 PublicacionController.crearPublicacion = async (req, res) => {
     try {
-        //const { titulo, contenido, autor } = req.body
         const { titulo, contenido } = req.body;
 
         const { token } = req.headers;
@@ -82,6 +80,22 @@ PublicacionController.crearPublicacion = async (req, res) => {
 PublicacionController.editarPublicacion = async (req, res) => {
     try {
         const { id, titulo, contenido, autor } = req.body;
+        const { token } = req.headers;
+        const validoToken = verificarToken(token);
+
+        if (!validoToken) {
+            return res.status(500).json({
+                mensaje: "Token invalido"
+            })
+        }
+        const userId = validoToken.id;
+        const publicacion = await PublicacionModel.findById(id);
+
+        if (publicacion.autor.toString() !== userId) {
+            return res.status(500).json({
+                mensaje: "No tiene acceso porque no es el autor"
+            })
+        }
 
         await PublicacionModel.findByIdAndUpdate(
             id,
