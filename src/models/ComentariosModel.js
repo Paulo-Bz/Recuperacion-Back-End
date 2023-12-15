@@ -2,15 +2,12 @@ const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
 
-const PublicacionSchema = new mongoose.Schema({
+const ComentariosSchema = new mongoose.Schema({
+
     _id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         auto: true
-    },
-    titulo: {
-        type: String,
-        required: true
     },
     contenido: {
         type: String,
@@ -19,10 +16,14 @@ const PublicacionSchema = new mongoose.Schema({
     autor: {
         type: Schema.Types.ObjectId,
         ref: 'usuario'
+    },
+    publicacion: {
+        type: Schema.Types.ObjectId,
+        ref: 'Publicacion'
     }
 });
 
-const PublicacionModel = mongoose.model('Publicacion', PublicacionSchema);
+const ComentariosModel = mongoose.model('comentario', ComentariosSchema);
 
 
-module.exports = PublicacionModel;
+module.exports = ComentariosModel;
