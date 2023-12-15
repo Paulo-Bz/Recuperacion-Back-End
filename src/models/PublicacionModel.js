@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
-const Schema = require('mongoose');
+const { Schema } = require('mongoose');
 
 
 const PublicacionSchema = new mongoose.Schema({
-    id: {
-        type: String,
-
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        auto: true
     },
     titulo: {
         type: String,

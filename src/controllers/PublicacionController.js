@@ -96,7 +96,6 @@ PublicacionController.editarPublicacion = async (req, res) => {
                 mensaje: "No tiene acceso porque no es el autor"
             })
         }
-
         await PublicacionModel.findByIdAndUpdate(
             id,
             { titulo: titulo, contenido: contenido, autor: autor }

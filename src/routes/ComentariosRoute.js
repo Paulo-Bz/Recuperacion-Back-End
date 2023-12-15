@@ -1,11 +1,24 @@
 const ComentariosRouter = require('express').Router();
 
-const { verComentarios, crearComentario } = require('../controllers/ComentariosController');
+const { verComentarios, crearComentario, editarComentario, verComentario, eliminarComentario } = require('../controllers/ComentariosController');
 
+//MONGOOSE//
 
-ComentariosRouter.get('/comentarios/:idPublicacion', verComentarios)
+//Ver Comentario//
+ComentariosRouter.get('/comentario/:id', verComentario);
 
-ComentariosRouter.post('/comentarios', crearComentario)
+//Ver Comentarios//
+ComentariosRouter.get('/comentarios/:idPublicacion', verComentarios);
+
+//Crear Comentario//
+ComentariosRouter.post('/comentario', crearComentario);
+
+//Editar Comentario//
+ComentariosRouter.put('/comentario', editarComentario);
+
+//Eliminar Comentario//
+ComentariosRouter.delete('/comentario', eliminarComentario);
+
 
 
 module.exports = ComentariosRouter;
