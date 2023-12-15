@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
-const Schema = require('mongoose');
+const { Schema } = require('mongoose');
 
 
 const ComentariosSchema = new mongoose.Schema({
 
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        auto: true
+    },
     contenido: {
         type: String,
         required: true
